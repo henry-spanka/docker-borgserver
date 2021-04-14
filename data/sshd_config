@@ -1,25 +1,36 @@
-Port 22
+Port 2222
 AddressFamily any
 ListenAddress 0.0.0.0
 ListenAddress ::
 
-HostKey /sshkeys/host/ssh_host_rsa_key
-HostKey /sshkeys/host/ssh_host_ed25519_key
+HostKey /keys/ssh_host_rsa_key
+HostKey /keys/ssh_host_ed25519_key
+AuthorizedKeysFile /home/borg/.ssh/authorized_keys
+PidFile /tmp/sshd.pid
 
-PermitRootLogin no
-StrictModes yes
-MaxSessions 20
-
-PubkeyAuthentication yes
-AuthorizedKeysFile	.ssh/authorized_keys
+# kill connection to client after ClientAliveCountMax * ClientAliveInterval seconds with no response
+ClientAliveInterval 20
+ClientAliveCountMax 3
 
 LogLevel INFO
 
+StrictModes yes
+MaxSessions 20
+
+# Restrict Access to user borg with public key
+AllowUsers borg
+AuthenticationMethods publickey
+PubkeyAuthentication yes
+
+# Disable everything that's not needed for borg to work
 PasswordAuthentication no
 ChallengeResponseAuthentication no
-UsePAM yes
+UsePAM no
+PermitRootLogin no
 AllowAgentForwarding no
 AllowTcpForwarding no
+AllowStreamLocalForwarding no
+AllowAgentForwarding no
 X11Forwarding no
 PermitTTY no
 PrintMotd no

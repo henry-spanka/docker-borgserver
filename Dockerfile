@@ -4,28 +4,30 @@
 ############################################################
 FROM debian:buster-slim
 
-# Volume for SSH-Keys
-VOLUME /sshkeys
+# Volume for SSH-Host-Keys
+VOLUME /keys
 
 # Volume for borg repositories
 VOLUME /backup
 
-ENV DEBIAN_FRONTEND noninteractive
-
-RUN apt-get update && apt-get -y --no-install-recommends install \
-		borgbackup openssh-server && apt-get clean && \
+RUN export DEBIAN_FRONTEND=noninteractive && \
+		apt-get update && \
+		apt-get -y --no-install-recommends install \
+		borgbackup openssh-server && \
+		apt-get -y dist-upgrade && apt-get clean && \
 		useradd -s /bin/bash -m -U borg && \
 		mkdir /home/borg/.ssh && \
 		chmod 700 /home/borg/.ssh && \
-		chown borg:borg /home/borg/.ssh && \
+		touch /home/borg/.ssh/authorized_keys && \
+		chown -R borg:borg /home/borg /backup && \
 		mkdir /run/sshd && \
 		rm -f /etc/ssh/ssh_host*key* && \
 		rm -rf /var/lib/apt/lists/* /var/tmp/* /tmp/*
 
-COPY ./data/run.sh /run.sh
 COPY ./data/sshd_config /etc/ssh/sshd_config
+COPY ./data/init.sh /init.sh
 
-ENTRYPOINT /run.sh
+USER borg
+EXPOSE 2222
 
-# Default SSH-Port for clients
-EXPOSE 22
+CMD [ "/usr/sbin/sshd", "-D", "-e" ]
