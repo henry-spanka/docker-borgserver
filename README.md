@@ -1,8 +1,9 @@
-# BorgServer - Docker image
-Debian based container image, running openssh-daemon only accessable by user named "borg" using SSH-Publickey Auth & "borgbackup" as client. Backup-Repositoriees, client's SSH-Keys & SSHd's Hostkeys will be stored in persistent storage.
+# BorgServer - Container image
+Debian based container image, running openssh-daemon only accessable by user named "borg" using SSH-Publickey Auth & "borgbackup" as client. 
+
 For every ssh-key added, a own borg-repository will be created.
 
-**NOTE: I will assume that you know, what a ssh-key is and how to generate & use it. If not, you might want to start here: [Arch Wiki](https://wiki.archlinux.org/index.php/SSH_Keys)**
+This Image is ment to run in Kubernetes. If you are looking for a Docker/Standalone solution, check out the previous Image [here](https://github.com/Nold360/docker-borgserver).
 
 ## Quick Example
 Here is a quick example how to configure & run this image:
