@@ -1,0 +1,13 @@
+---
+pipeline:
+  build:
+    image: plugins/kaniko:1.6
+    settings:
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+      repo: lib42/borgserver
+      dockerfile: Containerfile
+      tags:
+        - latest
