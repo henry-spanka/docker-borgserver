@@ -1,5 +1,5 @@
-.github/
-.gitignore
-.woodpecker.yml
-Containerfile
-README.md
+**/.github/**
+**/.gitignore
+/.woodpecker.yml
+/Containerfile
+/README.md
