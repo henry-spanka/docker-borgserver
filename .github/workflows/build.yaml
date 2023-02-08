@@ -79,7 +79,7 @@ jobs:
       - if: steps.current_version.outputs.digest != steps.new_version.outputs.digest
         run: |
           echo "Old Docker Container Digest: ${{ steps.current_version.outputs.digest }}
-          Old Docker Container Digest: ${{ steps.new_version.outputs.digest }}
+          New Docker Container Digest: ${{ steps.new_version.outputs.digest }}
           Borg Version: ${{ steps.borg_version.outputs.version }}
           Old Release: ${{ join(steps.current_release_version.outputs.*, ', ') }}
           Release Version: ${{ env.RELEASE_VERSION }}"
