@@ -28,7 +28,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
 		apt-get -y dist-upgrade && apt-get clean
 
 RUN useradd -s /bin/bash -m -U borg && \
-		mkdir /home/borg/.ssh && \
+		mkdir -p /home/borg/.ssh /backup "${SSH_CLIENT_DIR}" "${SSH_HOST_DIR}" && \
 		chmod 700 /home/borg/.ssh && \
 		touch /home/borg/.ssh/authorized_keys && \
 		chown -R borg:borg /home/borg /backup "${SSH_HOST_DIR}" && \

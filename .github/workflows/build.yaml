@@ -32,21 +32,32 @@ jobs:
       - name: Get current version
         id: current_version
         run: |
-          docker pull ${{ github.repository }}:latest || true && \
-          echo "VERSION=$(docker inspect --format='{{index .RepoDigests 0}}' ${{ github.repository }}:latest | cut -d: -f2)" >> $GITHUB_OUTPUT
+          docker pull ghcr.io/${{ github.repository }}:latest || true && \
+          echo "digest=$(docker history -q ghcr.io/${{ github.repository }}:latest | head -n 1)" >>$GITHUB_OUTPUT
 
       - name: Build
-        id: build
         uses: docker/build-push-action@v4
         with:
+          cache-from: |
+            type=gha
+          cache-to: |
+            type=gha,mode=max
+          load: true
           pull: true
-          push: false
-          tags: ${{ github.repository }}:latest
+          tags: ghcr.io/${{ github.repository }}:latest
 
-      - name: Build
-        if: steps.current_version.outputs.VERSION != steps.build.outputs.digest
+      - name: Get new version digest
+        id: new_version
+        run: echo "digest=$(docker history -q ghcr.io/${{ github.repository }}:latest | head -n 1)" >>$GITHUB_OUTPUT
+
+      - run: echo "current_version=${{ steps.current_version.outputs.digest }} new_version=${{ steps.new_version.outputs.digest }}"
+
+      - name: Push
+        if: steps.current_version.outputs.digest != steps.new_version.outputs.digest
         uses: docker/build-push-action@v4
         with:
-          pull: true
-          push: false
-          tags: ${{ github.repository }}:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          push: true
+          sbom: true
+          tags: ghcr.io/${{ github.repository }}:latest
