@@ -11,15 +11,14 @@ service:
 
 persistence:
   enabled: true
-  storageClass: ""
+  # storageClass: local-path
   size: 10Gi
   accessModes:
   - ReadWriteOnce
-  volumeMode: Filesystem
 
 borg:
   admin: ""
-  additional_args: "--append-only"
+  additional_args: ""
 
   ## If you mounted your persistent storage somewhere else:
   #data_dir: /backup
