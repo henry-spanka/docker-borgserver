@@ -3,6 +3,29 @@ entries:
   borgserver:
   - apiVersion: v2
     appVersion: 1.2.3
+    created: "2023-02-12T16:32:35.349903189Z"
+    description: Chart for a BorgBackup Server
+    digest: 5460bdb1ab17f01e4c35460a3e4d6bc5cef7c7efa867f5462615e9ba54e2e5d0
+    home: https://github.com/dzervas/docker-borgserver
+    keywords:
+    - backup
+    - borgbackup
+    - ssh
+    maintainers:
+    - email: dzervas@dzervas.gr
+      name: Dimitris Zervas
+    - email: nold@gnu.one
+      name: nold
+    name: borgserver
+    sources:
+    - https://github.com/dzervas/docker-borgserver
+    - https://github.com/lib42/docker-borgserver
+    - https://borgbackup.readthedocs.io/en/stable
+    urls:
+    - https://github.com/dzervas/docker-borgserver/releases/download/1.2.3-21/borgserver-1.2.3-21.tgz
+    version: 1.2.3-21
+  - apiVersion: v2
+    appVersion: 1.2.3
     created: "2023-02-12T16:28:59.305923891Z"
     description: Chart for a BorgBackup Server
     digest: 02174b2627488f636cdb5b3d2d4ef81cea6bf444dc72da7619a4dab607bdf5e9
@@ -139,4 +162,4 @@ entries:
     urls:
     - https://github.com/dzervas/docker-borgserver/releases/download/borgserver-1.2.3-13/borgserver-1.2.3-13.tgz
     version: 1.2.3-13
-generated: "2023-02-12T16:28:59.305947891Z"
+generated: "2023-02-12T16:32:35.349931089Z"
