@@ -16,6 +16,9 @@ persistence:
   accessModes:
   - ReadWriteOnce
 
+# nodeSelector:
+  # mytag: value
+
 borg:
   admin: ""
   additional_args: ""
