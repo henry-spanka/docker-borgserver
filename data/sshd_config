@@ -9,7 +9,7 @@ AuthorizedKeysFile /home/borg/.ssh/authorized_keys
 PidFile /tmp/sshd.pid
 
 # kill connection to client after ClientAliveCountMax * ClientAliveInterval seconds with no response
-ClientAliveInterval 20
+ClientAliveInterval 300
 ClientAliveCountMax 3
 
 LogLevel INFO
