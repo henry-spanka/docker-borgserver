@@ -24,7 +24,7 @@ VOLUME /backup
 RUN export DEBIAN_FRONTEND=noninteractive && \
 		apt-get update && \
 		apt-get -y --no-install-recommends install \
-		borgbackup openssh-server && \
+		borgbackup openssh-server rclone && \
 		apt-get -y dist-upgrade && apt-get clean
 
 RUN useradd -s /bin/bash -m -U borg && \
